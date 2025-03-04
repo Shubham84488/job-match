@@ -2,3 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer utilities{
+    .skills{
+        @apply border-2 font-extralight py-1 px-2 bg-slate-100 rounded-xl
+    }
+    .filter-input{
+        @apply bg-gray-200 block w-full mb-3 rounded-lg p-2
+    }
+}
