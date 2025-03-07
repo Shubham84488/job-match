@@ -6,7 +6,7 @@ import Sidebar from "./Sidebar";
 
 const Layout = ({ children }) => {
   const pathname = usePathname();
-  const hideSidebarRoutes = ["/signUp", "/login"];
+  const hideSidebarRoutes = ["/signup", "/login"];
 
   return (
     <div className="flex">

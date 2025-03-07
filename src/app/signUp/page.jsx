@@ -1,5 +1,6 @@
 "use client"
 
+import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
 
@@ -9,7 +10,16 @@ const SignUp = () => {
     "name":"",
     "email":"",
     "password":""
-})
+  })
+
+  const handlesubmit=async()=>{
+    try {
+      const response = await axios.post("/api/users/signup",user)
+      console.log(response.data)
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
   return (
     <div className='flex justify-center items-center h-screen bg-gradient-to-r from-blue-500 to-purple-600'>
@@ -52,6 +62,7 @@ const SignUp = () => {
             type="submit"
             className="p-2 text-lg font-semibold border-2 border-purple-700 rounded-lg block w-full mt-3 
              bg-purple-500 text-white transition-all duration-300 hover:bg-purple-600 hover:shadow-md"
+            onClick={handlesubmit}
             >
             Submit
         </button>
