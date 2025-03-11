@@ -2,13 +2,13 @@ import React,{useState} from 'react'
 import Personal from './Personal'
 import Education from './Education'
 import Career from './Career'
-import { ProfileProvider,useProfile } from '@/context/ProfileContext';  // Import Context
+import {useProfile } from '@/context/ProfileContext';  // Import Context
 import axios from 'axios';
 import {toast,Toaster} from 'react-hot-toast';
 
 const Profiler = () => {
     const [details, setDetails] = useState("personal");
-    const { profileData, updateProfile,handleedit } = useProfile(); // Use context
+    const {handleedit } = useProfile(); // Use context
 
   return (
     <div>

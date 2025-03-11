@@ -1,8 +1,40 @@
-import React from 'react';
+"use client"
+import React,{useRef} from 'react';
 import { useProfile } from '../context/ProfileContext'; // Import the context
+import axios from 'axios';
 
 const Career = () => {
   const { profileData, updateProfile,handleedit  } = useProfile(); // Get state and updater function
+  const fileInputRef = useRef(null);
+
+  const handleButtonClick = () => {
+    fileInputRef.current.click(); // Trigger file input click
+  };
+
+  const handleFileChange = async(event) => {
+    const file = event.target.files[0];
+    
+    if (!file) {
+      alert("No file selected!");
+      return;
+    }else{
+      console.log(file)
+    }
+    
+    const formdata= new FormData();
+    formdata.append('resume', file);
+    console.log(formdata.get("resume"))
+
+    try {
+      const response = await axios.post("/api/users/resume",formdata,{
+        headers: {"Content-Type":"multipart/form-data"},
+      })
+      console.log("Upload successful:", response.data);
+    } catch (error) {
+      console.error("Upload error:", error);
+      alert("Upload failed. Please try again.");
+    }
+  };
 
   return (
     <div>
@@ -96,9 +128,20 @@ const Career = () => {
 
           {/* Resume Upload */}
           <div>
-            <p className='text-blue-900'>Resume</p>
-            <div className='bg-gray-200 block w-full my-3 rounded-lg p-2 text-end'>
-              <button className='p-2 mr-2 bg-blue-400 rounded-lg text-white hover:bg-blue-500'>
+            <p className="text-blue-900">Resume</p>
+            <div className="bg-gray-200 block w-full my-3 rounded-lg p-2 text-end">
+              {/* Hidden File Input */}
+              <input
+                type="file"
+                ref={fileInputRef}
+                className="hidden"
+                onChange={handleFileChange}
+              />
+              {/* Button to Trigger File Input */}
+              <button
+                className="p-2 mr-2 bg-blue-400 rounded-lg text-white hover:bg-blue-500"
+                onClick={handleButtonClick}
+              >
                 Upload
               </button>
             </div>
