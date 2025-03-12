@@ -1,23 +1,23 @@
 "use client";
-
-import axios from "axios";
 import React, { useState } from "react";
+import axios from "axios";
 
-const SignUp = () => {
-  const [user, setUser] = useState({
+const HireTalent = () => {
+  const [recruiter, setRecruiter] = useState({
     name: "",
     email: "",
+    number: "",
     password: "",
   });
 
   const handleChange = (e) => {
-    setUser({ ...user, [e.target.name]: e.target.value });
+    setRecruiter({ ...recruiter, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+    e.preventDefault(); // Prevent page reload
     try {
-      const response = await axios.post("/api/jobseekers/signup", user);
+      const response = await axios.post("/api/jobseekers/hiretalent", recruiter);
       console.log(response.data);
     } catch (error) {
       console.error(error);
@@ -43,13 +43,25 @@ const SignUp = () => {
           </div>
 
           <div>
-            <label htmlFor="email" className="text-lg font-medium text-gray-700">Email ID</label>
+            <label htmlFor="email" className="text-lg font-medium text-gray-700">Official Email ID</label>
             <input
               type="email"
               id="email"
               name="email"
               onChange={handleChange}
-              placeholder="Enter your email"
+              placeholder="Enter your official email"
+              className="w-full p-3 border border-gray-400 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500"
+            />
+          </div>
+
+          <div>
+            <label htmlFor="number" className="text-lg font-medium text-gray-700">Phone Number</label>
+            <input
+              type="number"
+              id="number"
+              name="number"
+              onChange={handleChange}
+              placeholder="Enter your phone number"
               className="w-full p-3 border border-gray-400 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500"
             />
           </div>
@@ -78,4 +90,4 @@ const SignUp = () => {
   );
 };
 
-export default SignUp;
+export default HireTalent;

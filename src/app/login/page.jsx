@@ -1,63 +1,83 @@
-"use client"
-import axios from 'axios'
-import React, { useState } from 'react'
+"use client";
 
-const Login= () => {
+import axios from "axios";
+import React, { useState } from "react";
 
-  const [user,setUser] = useState({
-      email:"",
-      password:""
-  })
+const Login = () => {
+  const [user, setUser] = useState({
+    email: "",
+    password: "",
+    role: "jobseeker", 
+  });
 
-  const handlesubmit=async()=>{
+  const handleChange = (e) => {
+    setUser({ ...user, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     try {
-      const response = await axios.post("/api/users/login",user)
-      console.log(response.data)
+      const response = await axios.post("/api/jobseekers/login", user);
+      console.log(response.data);
     } catch (error) {
-      console.log(error)
+      console.error(error);
     }
-  }
+  };
 
   return (
-    <div className='flex justify-center items-center h-screen bg-gradient-to-r from-blue-500 to-purple-600'>
-      <div className='flex-row  border-2 p-6 bg-gray-200 rounded-[20px] lg:w-1/4 md:w-2/5 h-2/3 shadow-lg shadow-black'>
-        <h1 className='text-2xl font-extrabold text-center mb-5'>
-            Login
-        </h1>
+    <div className="flex justify-center items-center min-h-screen bg-gradient-to-r from-blue-500 to-purple-600 p-4">
+      <div className="w-full max-w-md md:max-w-lg lg:max-w-md bg-gray-200 border-2 p-8 rounded-2xl shadow-lg shadow-black">
+        <h1 className="text-3xl font-extrabold text-center mb-6 text-gray-800">Login</h1>
 
-        <br />
-
-        <label htmlFor="emailId" className='text-lg'>Email ID </label><br />
-        <input 
-            type='text'
-            id='emailId'
-            onChange={(e)=>setUser({...user,email:e.target.value})}
-            className=' border-black border-[2px] rounded-md mb-4 w-full p-2'
-            >
-        </input>
-
-        <br />
-        <label htmlFor="password" className='text-lg'>Password</label><br />
-        <input 
-            type="password" 
-            id='password'
-            onChange={(e)=>setUser({...user,password:e.target.value})}
-            className=' border-black border-[2px] rounded-md mb-4 w-full p-2'
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <div>
+            <label htmlFor="email" className="text-lg font-medium text-gray-700">Email ID</label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              onChange={handleChange}
+              placeholder="Enter your email"
+              className="w-full p-3 border border-gray-400 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500"
             />
+          </div>
 
-        <br />
-        <button 
-            type="submit"
-            className="p-2 text-lg font-semibold border-2 border-purple-700 rounded-lg block w-full mt-3 
-                        bg-purple-500 text-white transition-all duration-300 hover:bg-purple-600 hover:shadow-md"
-            onClick={handlesubmit}
+          <div>
+            <label htmlFor="password" className="text-lg font-medium text-gray-700">Password</label>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              onChange={handleChange}
+              placeholder="Enter your password"
+              className="w-full p-3 border border-gray-400 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500"
+            />
+          </div>
+
+          {/* Role Selection Dropdown */}
+          <div>
+            <label htmlFor="role" className="text-lg font-medium text-gray-700">Login As</label>
+            <select
+              id="role"
+              name="role"
+              onChange={handleChange}
+              className="w-full p-3 border border-gray-400 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500"
             >
-            Submit
-        </button>
+              <option value="jobseeker">Job Seeker</option>
+              <option value="recruiter">Recruiter</option>
+            </select>
+          </div>
 
+          <button
+            type="submit"
+            className="w-full p-3 text-lg font-semibold border-2 border-purple-700 rounded-lg bg-purple-500 text-white transition-all duration-300 hover:bg-purple-600 hover:shadow-md"
+          >
+            Submit
+          </button>
+        </form>
       </div>
     </div>
+  );
+};
 
-  )}
-
-export default Login
+export default Login;

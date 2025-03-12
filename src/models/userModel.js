@@ -29,18 +29,11 @@ const jobseekerSchema = new mongoose.Schema({
     resume: String, // Store resume file URL if uploaded
   },
 
-  // Auth Tokens
-  auth: {
-    accessToken: { type: String },
-    refreshToken: { type: String },
-  },
-
   // Jobs the jobseeker has applied for
   appliedJobs: [
     {
       jobId: { type: mongoose.Schema.Types.ObjectId, ref: "Job" }, // Refers to Job model
       company: String,
-      position: String,
       status: { type: String, enum: ["pending", "shortlisted", "rejected", "hired"], default: "pending" },
       appliedAt: { type: Date, default: Date.now },
     },

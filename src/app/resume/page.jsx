@@ -19,7 +19,7 @@ const page = () => {
           formData.append("resume", resume);
       
           try {
-            const response = await axios.post("/api/users/resume", formData, {
+            const response = await axios.post("/api/jobseekers/resume", formData, {
               headers: { "Content-Type": "multipart/form-data" },
             });
       

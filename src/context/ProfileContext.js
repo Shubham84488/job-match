@@ -38,7 +38,7 @@ export const ProfileProvider = ({ children }) => {
   useEffect(()=>{
     const fetchProfile = async () => {
       try {
-        const response = await axios.get("/api/users/profile");
+        const response = await axios.get("/api/jobseekers/profile");
         console.log(response.data) // Update Context with API Data
         const data = response.data;
         
@@ -90,7 +90,7 @@ export const ProfileProvider = ({ children }) => {
 
   const handleedit = async () => {
     try {
-      const response = await axios.post("/api/users/profile", profileData);
+      const response = await axios.post("/api/jobseekers/profile", profileData);
       console.log("Profile updated successfully", response.data);
     } catch (error) {
       console.error("Error updating profile:", error);

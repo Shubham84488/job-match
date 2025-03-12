@@ -26,7 +26,7 @@ const Career = () => {
     console.log(formdata.get("resume"))
 
     try {
-      const response = await axios.post("/api/users/resume",formdata,{
+      const response = await axios.post("/api/jobseekers/resume",formdata,{
         headers: {"Content-Type":"multipart/form-data"},
       })
       console.log("Upload successful:", response.data);
@@ -138,12 +138,15 @@ const Career = () => {
                 onChange={handleFileChange}
               />
               {/* Button to Trigger File Input */}
-              <button
-                className="p-2 mr-2 bg-blue-400 rounded-lg text-white hover:bg-blue-500"
-                onClick={handleButtonClick}
-              >
-                Upload
-              </button>
+              <div className='flex justify-between'>
+                <p>{profileData.career.resume || ""}</p>
+                <button
+                  className="p-2 mr-2 bg-blue-400 rounded-lg text-white hover:bg-blue-500"
+                  onClick={handleButtonClick}
+                >
+                  Upload
+                </button>
+              </div>
             </div>
           </div>
 

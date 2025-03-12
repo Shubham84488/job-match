@@ -1,4 +1,4 @@
-"use client"; // Required for client-side hooks
+"use client"; 
 
 import React from "react";
 import { usePathname } from "next/navigation";
@@ -6,8 +6,8 @@ import Sidebar from "./Sidebar";
 
 const Layout = ({ children }) => {
   const pathname = usePathname();
-  const hideSidebarRoutes = ["/signup", "/login"];
-
+  const hideSidebarRoutes = ["/signup", "/login",'/hiretalent'];
+  
   return (
     <div className="flex">
       {!hideSidebarRoutes.includes(pathname) && <Sidebar />}

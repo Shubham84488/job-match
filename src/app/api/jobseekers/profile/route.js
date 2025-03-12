@@ -17,7 +17,6 @@ export async function POST(request) {
         if (!user) {
             return NextResponse.json({ error: "User not found" }, { status: 404 });
         }
-
         // Update user details
         user.name = personal.name || user.name;
         user.phone = personal.phone || user.phone;
