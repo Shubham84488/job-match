@@ -1,23 +1,26 @@
 "use client";
 import React, { useState } from "react";
 import axios from "axios";
+import { useRouter } from "next/navigation";
 
 const HireTalent = () => {
   const [recruiter, setRecruiter] = useState({
     name: "",
     email: "",
-    number: "",
+    phone: "",
     password: "",
   });
+  const router = useRouter()
 
   const handleChange = (e) => {
     setRecruiter({ ...recruiter, [e.target.name]: e.target.value });
+    router.push("/login")
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault(); // Prevent page reload
     try {
-      const response = await axios.post("/api/jobseekers/hiretalent", recruiter);
+      const response = await axios.post("/api/recruiters/hiretalent", recruiter);
       console.log(response.data);
     } catch (error) {
       console.error(error);
@@ -55,11 +58,11 @@ const HireTalent = () => {
           </div>
 
           <div>
-            <label htmlFor="number" className="text-lg font-medium text-gray-700">Phone Number</label>
+            <label htmlFor="phone" className="text-lg font-medium text-gray-700">Phone Number</label>
             <input
               type="number"
-              id="number"
-              name="number"
+              id="phone"
+              name="phone"
               onChange={handleChange}
               placeholder="Enter your phone number"
               className="w-full p-3 border border-gray-400 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500"

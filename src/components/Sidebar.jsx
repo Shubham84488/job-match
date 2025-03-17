@@ -9,10 +9,10 @@ const Sidebar = () => {
     const fetchRole = async () => {
       try {
         const response = await axios.get("/api/jobseekers/role");
-        console.log(response);
+        if(!response.data) throw new Error("No role found");
         setRole(response.data.role);
       } catch (error) {
-        console.error("Error fetching role:", error);
+        console.log("Error fetching role:", error);
       }
     };
   
