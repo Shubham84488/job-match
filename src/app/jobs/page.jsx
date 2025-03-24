@@ -4,14 +4,32 @@ import React, { useState, useEffect } from 'react'
 import data from '@/data/data'
 import Pagination from '@/components/Pagination';
 import Image from 'next/image';
+import axios from 'axios';
+import { useRouter } from 'next/navigation';
 
 const Jobs = () => {
     const [jobData, setJobData] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const postsPerPage = 5;
+    const router = useRouter();
+
+    const handleShow = (id) => {
+        router.push(`/job/${id}`);
+    };
+    
 
     useEffect(() => {
-        setJobData(data);  // Load data once when the component mounts
+        try {
+            async function fetchJobs(){
+                const response = await axios.get("/api/jobseekers/jobs")
+                setJobData(response.data)
+            }
+            fetchJobs()
+        } catch (error) {
+            console.log("Some error occurred"+error)
+        }
+        console.log(jobData)
+        setJobData(data)
     }, []);
 
     const lastPostIndex = currentPage * postsPerPage;
@@ -58,22 +76,23 @@ const Jobs = () => {
                                     </div> {/* Fixed incorrect key */}
                                     <div className='flex gap-1'>
                                         <Image src="/icons8-experience-50.png" width={24} height={14} alt='exp'></Image>
-                                        <p>{job.experience}</p>
+                                        <p>{job.experience} years</p>
                                     </div>
                                     <div className='flex gap-1'>
                                         <Image src="/icons8-money-32.png" width={24} height={14} alt='sal'></Image>
-                                        <p>{job.salary.min}-{job.salary.max}</p>
+                                        <p>{job.minSalary?.toLocaleString("en-IN")}-{job.maxSalary?.toLocaleString("en-IN")}</p>
                                     </div>
                                 </div>
                                 <div className='flex justify-between mt-4'>
                                     <div className='flex gap-3'>
-                                        <p className='skills'>{job.skill1}</p>
-                                        <p className='skills'>{job.skill2}</p>
-                                        <p className='skills'>{job.skill3}</p>
-                                        <p className='skills'>{job.skill4}</p>
+                                        {job.skills?.slice(0,3).map((skill,index)=>(
+                                            <p className='skills' key={index}>{skill}</p>
+                                        ))}
                                     </div>
                                     <div>
-                                        <button className='font-bold p-2 px-4 text-white bg-blue-500 rounded-xl hover:bg-blue-700 flex gap-2'>
+                                        <button className='font-bold p-2 px-4 text-white bg-blue-500 rounded-xl hover:bg-blue-700 flex gap-2'
+                                            onClick={() => handleShow(job._id)}
+                                        >
                                             Apply
                                         </button>
                                     </div>

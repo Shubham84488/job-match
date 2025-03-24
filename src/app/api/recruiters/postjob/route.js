@@ -10,7 +10,6 @@ connect();
 export async function POST(request) {
     try {
         const req = await request.json();
-        console.log(req)
 
         // Get token from cookies
         const cookie = await cookies()

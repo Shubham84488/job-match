@@ -13,6 +13,7 @@ const PostJob = () => {
   const [title,setTitle] = useState("");
   const [company, setCompany] = useState("")
   const [location, setLocation] = useState("")
+  const [experience,setExperience]=useState("")
   const [minSalary, setMinSalary] = useState("")
   const [maxSalary, setMaxSalary] = useState("")
   const [applyByDate, setApplyByDate] = useState("")
@@ -56,6 +57,7 @@ const PostJob = () => {
       title,
       company,
       location,
+      experience,
       minSalary,
       maxSalary,
       applyByDate,  // Ensure consistent key name
@@ -96,6 +98,11 @@ const PostJob = () => {
         <div>
           <label className={`${nunito.className} text-lg mx-1`}>Location</label>
           <input placeholder="Location" value={location} onChange={(e) => setLocation(e.target.value)} required className="w-full p-2 border rounded" />
+        </div>
+
+        <div>
+          <label className={`${nunito.className} text-lg mx-1`}>Experience</label>
+          <input defaultValue={0} type="number" placeholder="Experience" onChange={(e) => setExperience(e.target.value)} required className="w-full p-2 border rounded" />
         </div>
         
         <div>

@@ -1,18 +1,32 @@
 "use client"
 import Link from "next/link";
 import { useState,useEffect } from "react";
+import { Toaster,toast } from "react-hot-toast";
+import { useRouter } from "next/navigation";
 import axios from "axios";
 const Sidebar = () => {
   const [role,setRole] = useState("jobseeker")
+  const router = useRouter()
+
+  const handleLogout=async()=>{
+    try {
+      const response =await axios.get("/api/jobseekers/logout")
+      console.log(response.data.message)
+      toast.success("Logged out successfully")
+      router.push("/login")
+    } catch (error) {
+      console.log("Some error happened")
+    }
+  }
 
   useEffect(()=>{
     const fetchRole = async () => {
       try {
-        const response = await axios.get("/api/jobseekers/role");
-        if(!response.data) throw new Error("No role found");
+        const response = await axios.get("/api/jobseekers/role"); 
         setRole(response.data.role);
       } catch (error) {
         console.log("Error fetching role:", error);
+        router.push("/login")
       }
     };
   
@@ -20,6 +34,7 @@ const Sidebar = () => {
   },[])
     return (
       <div className="h-screen w-64 bg-gray-900 text-white fixed top-0 left-0 flex flex-col p-5">
+        <Toaster/>
         <Link href="/">
           <h1 className="text-2xl font-bold mb-6">JOBNEW</h1>
         </Link>
@@ -42,7 +57,7 @@ const Sidebar = () => {
         }
         
         <ul className="absolute bottom-5">
-            <li><a href="/aboutUs" className="hover:text-gray-400"> Logout</a></li>
+          <button onClick={handleLogout} className="hover:text-gray-400">Logout</button>
         </ul>
       </div>
     );

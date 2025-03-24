@@ -11,7 +11,7 @@ const Layout = ({ children }) => {
   return (
     <div className="flex">
       {!hideSidebarRoutes.includes(pathname) && <Sidebar />}
-      <main className={`${hideSidebarRoutes.includes(pathname) ? "w-full" : "ml-64 w-full p-6"}`}>
+      <main className={`${hideSidebarRoutes.includes(pathname) ? "w-full" : "ml-64 w-full"}`}>
         {children}
       </main>
     </div>

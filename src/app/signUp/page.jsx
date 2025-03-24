@@ -2,6 +2,9 @@
 
 import axios from "axios";
 import React, { useState } from "react";
+import { useRouter } from "next/navigation";
+import { Toaster,toast } from "react-hot-toast";
+import Link from "next/link";
 
 const SignUp = () => {
   const [user, setUser] = useState({
@@ -9,6 +12,7 @@ const SignUp = () => {
     email: "",
     password: "",
   });
+  const router = useRouter();
 
   const handleChange = (e) => {
     setUser({ ...user, [e.target.name]: e.target.value });
@@ -19,6 +23,8 @@ const SignUp = () => {
     try {
       const response = await axios.post("/api/jobseekers/signup", user);
       console.log(response.data);
+      toast.success("Signup Successfull");
+      router.push("/login")
     } catch (error) {
       console.error(error);
     }
@@ -26,6 +32,7 @@ const SignUp = () => {
 
   return (
     <div className="flex justify-center items-center min-h-screen bg-gradient-to-r from-blue-500 to-purple-600 p-4">
+      <Toaster/>
       <div className="w-full max-w-md md:max-w-lg lg:max-w-md bg-gray-200 border-2 p-8 rounded-2xl shadow-lg shadow-black">
         <h1 className="text-3xl font-extrabold text-center mb-6 text-gray-800">Sign Up</h1>
 
@@ -73,6 +80,13 @@ const SignUp = () => {
             Submit
           </button>
         </form>
+
+        <p className="mt-4 text-center text-gray-700">
+          Already have an account?{" "}
+          <Link href="/login" className="text-purple-600 font-semibold hover:underline">
+            Login
+          </Link>
+        </p>
       </div>
     </div>
   );
