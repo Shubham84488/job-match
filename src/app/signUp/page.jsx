@@ -87,6 +87,13 @@ const SignUp = () => {
             Login
           </Link>
         </p>
+
+        <p className="mt-4 text-center text-gray-700">
+          Are you a recruiter?{" "}
+          <Link href="/hiretalent" className="text-purple-600 font-semibold hover:underline">
+            SignUp
+          </Link>
+        </p>
       </div>
     </div>
   );

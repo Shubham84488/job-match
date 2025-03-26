@@ -2,16 +2,16 @@ import React,{useState} from 'react'
 import Personal from './Personal'
 import Education from './Education'
 import Career from './Career'
-import {useProfile } from '@/context/ProfileContext';  // Import Context
-import axios from 'axios';
+import {useProfile } from '@/context/ProfileContext';  
 import {toast,Toaster} from 'react-hot-toast';
+import { Pencil } from 'lucide-react';
 
 const Profiler = () => {
     const [details, setDetails] = useState("personal");
     const {handleedit } = useProfile(); // Use context
 
   return (
-    <div>
+    <div className='p-6'>
         <Toaster/>
         <header className='flex justify-between mx-7 my-2'>
           <div>
@@ -21,8 +21,9 @@ const Profiler = () => {
           <div className='flex justify-end mt-3 mr-9'>
             <button
                 onClick={handleedit }
-                className='rounded-md bg-blue-500 text-white px-7 py-2'>
-                Edit
+                className='rounded-md bg-blue-500 text-white px-7 py-3 hover:bg-blue-700 text-xl flex justify-center gap-2'>
+                <Pencil height={20} className='mt-1'/>
+                <p>SAVE</p>
             </button>
            </div>
         </header>

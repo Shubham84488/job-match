@@ -35,7 +35,7 @@ const JobDetails = () => {
   }
 
   return (
-    <div className="container mx-auto p-6 border-2 border-black w-2/3 rounded-2xl">
+    <div className="container mx-auto p-6 border-2 border-black w-2/3 rounded-2xl mt-6">
       <Toaster/>
       <h1 className="text-3xl font-bold">{job?.title}</h1>
       <p className="text-lg text-gray-600">{job?.company} - {job?.location}</p>

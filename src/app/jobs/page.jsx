@@ -36,7 +36,7 @@ const Jobs = () => {
     const startPostIndex = lastPostIndex - postsPerPage;
     const currentPosts = jobData.slice(startPostIndex, lastPostIndex); // Use currentPosts
     return (
-        <div>
+        <div className='p-6'>
             <div>
                 <h1 className='text-5xl'>Jobs</h1>
             </div>

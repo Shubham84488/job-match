@@ -3,6 +3,7 @@ import jobseeker from '@/models/userModel';
 import { connect } from '@/dbconfig/dbconfig';
 import { cookies } from 'next/headers';
 import jwt from 'jsonwebtoken';
+import { authenticate } from '@/middlewares/authMiddleware';
 
 connect();
 
@@ -40,24 +41,10 @@ export async function POST(request) {
 
 export async function GET(request) {
     try {
-        const cookieStore = await cookies();
-        const token = cookieStore.get('token')?.value;
-        console.log(token)
+        const authResponse = await authenticate(request);
 
-        if (!token) {
-            return NextResponse.json({ error: "Unauthorized: No token provided" }, { status: 401 });
-        }
-
-        // Verify JWT
-        const decoded = jwt.verify(token, process.env.TOKEN_SECRET);
-        const email = decoded.email;
-
-        // Find user
-        const user = await jobseeker.findOne({ email });
-
-        if (!user) {
-            return NextResponse.json({ error: "User not found" }, { status: 404 });
-        }
+        if(authResponse instanceof NextResponse) return authResponse;
+        const { user } = authResponse;
 
         // Return user details
         return NextResponse.json(

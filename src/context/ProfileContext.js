@@ -2,6 +2,7 @@
 
 import axios from "axios";
 import { createContext, useState, useContext, useEffect } from "react";
+import { Toaster,toast } from "react-hot-toast";
 
 // Creating Context
 const ProfileContext = createContext();
@@ -90,6 +91,7 @@ export const ProfileProvider = ({ children }) => {
   const handleedit = async () => {
     try {
       const response = await axios.post("/api/jobseekers/profile", profileData);
+      toast.success("Profile Updated")
       console.log("Profile updated successfully", response.data);
     } catch (error) {
       console.error("Error updating profile:", error.response?.data || error.message);

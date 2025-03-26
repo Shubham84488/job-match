@@ -2,8 +2,7 @@ import { NextResponse } from "next/server";
 import {PutObjectCommand, S3Client} from '@aws-sdk/client-s3'
 import multer from "multer";
 import multerS3 from "multer-s3";
-import jwt from "jsonwebtoken";  // Import JWT
-import jobseeker from "@/models/userModel";  // Your user model
+import { authenticate } from "@/middlewares/authMiddleware";
 import { connect } from "@/dbconfig/dbconfig";  // Your MongoDB connection
 import { cookies } from "next/headers";
 
@@ -58,16 +57,10 @@ export async function POST(req) {
                 return resolve(NextResponse.json({ error: "No file uploaded" }, { status: 400 }));
             }
 
-            const cookieStore = await cookies();
-            const token = cookieStore.get('token')?.value;
+            const authResponse = await authenticate(request);
 
-            if (!token) {
-                return NextResponse.json({ error: "Unauthorized: No token provided" }, { status: 401 });
-            }
-
-            // Verify JWT
-            const decoded = jwt.verify(token, process.env.TOKEN_SECRET);
-            const email = decoded.email;
+            if(authResponse instanceof NextResponse) return authResponse;
+            const { user } = authResponse;
 
             const buffer = Buffer.from(await resume.arrayBuffer()); // Convert file to buffer
             const fileExt = resume.name.split(".").pop(); // Extract file extension
@@ -89,9 +82,6 @@ export async function POST(req) {
             await s3.send(new PutObjectCommand(uploadParams));
             
             const fileUrl = `https://${process.env.AWS_BUCKET_NAME}.s3.${process.env.AWS_REGION}.amazonaws.com/${fileName}`;
-
-            // Find user
-            const user = await jobseeker.findOne({ email });
 
             if (!user) {
                 return NextResponse.json({ error: "User not found" }, { status: 404 });

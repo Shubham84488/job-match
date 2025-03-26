@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 const HireTalent = () => {
   const [recruiter, setRecruiter] = useState({
@@ -88,6 +89,20 @@ const HireTalent = () => {
             Submit
           </button>
         </form>
+
+        <p className="mt-4 text-center text-gray-700">
+          Already have an account?{" "}
+          <Link href="/login" className="text-purple-600 font-semibold hover:underline">
+            Login
+          </Link>
+        </p>
+
+        <p className="mt-4 text-center text-gray-700">
+          Are you a jobseeker?{" "}
+          <Link href="/signup" className="text-purple-600 font-semibold hover:underline">
+            Signup
+          </Link>
+        </p>
       </div>
     </div>
   );
