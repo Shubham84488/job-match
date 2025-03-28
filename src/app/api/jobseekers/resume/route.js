@@ -57,7 +57,7 @@ export async function POST(req) {
                 return resolve(NextResponse.json({ error: "No file uploaded" }, { status: 400 }));
             }
 
-            const authResponse = await authenticate(request);
+            const authResponse = await authenticate();
 
             if(authResponse instanceof NextResponse) return authResponse;
             const { user } = authResponse;

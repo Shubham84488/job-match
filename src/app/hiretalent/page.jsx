@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { Toaster,toast } from "react-hot-toast";
 
 const HireTalent = () => {
   const [recruiter, setRecruiter] = useState({
@@ -15,7 +16,6 @@ const HireTalent = () => {
 
   const handleChange = (e) => {
     setRecruiter({ ...recruiter, [e.target.name]: e.target.value });
-    router.push("/login")
   };
 
   const handleSubmit = async (e) => {
@@ -23,6 +23,8 @@ const HireTalent = () => {
     try {
       const response = await axios.post("/api/recruiters/hiretalent", recruiter);
       console.log(response.data);
+      toast.success("Signup Successful")
+      router.push("/login")
     } catch (error) {
       console.error(error);
     }
@@ -30,6 +32,7 @@ const HireTalent = () => {
 
   return (
     <div className="flex justify-center items-center min-h-screen bg-gradient-to-r from-blue-500 to-purple-600 p-4">
+      <Toaster/>
       <div className="w-full max-w-md md:max-w-lg lg:max-w-md bg-gray-200 border-2 p-8 rounded-2xl shadow-lg shadow-black">
         <h1 className="text-3xl font-extrabold text-center mb-6 text-gray-800">Sign Up</h1>
 

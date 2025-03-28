@@ -3,7 +3,7 @@ import { cookies } from "next/headers";
 import jwt from "jsonwebtoken";
 import jobseeker from "@/models/userModel";  // Adjust this based on your model
 
-export async function authenticate(request) {
+export async function authenticate() {
     try {
         const cookieStore = await cookies();
         const token = cookieStore.get("token")?.value;

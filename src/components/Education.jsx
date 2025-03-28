@@ -24,12 +24,12 @@ const Education = () => {
             </div>
 
             <div>
-              <label htmlFor="gradyear" className='mt-3 text-blue-900'>Graduation Year</label>
+              <label htmlFor="gradYear" className='mt-3 text-blue-900'>Graduation Year</label>
               <input 
                 type="number" 
-                id='gradyear'
-                value={profileData.education?.gradyear || ""}
-                onChange={(e) => updateProfile("education", "gradyear", e.target.value)}
+                id='gradYear'
+                value={profileData.education?.gradYear || ""}
+                onChange={(e) => updateProfile("education", "gradYear", e.target.value)}
                 className='bg-gray-200 block w-full my-3 rounded-lg p-2' 
               />
             </div>
@@ -51,8 +51,8 @@ const Education = () => {
                 <input 
                   type="text" 
                   id='dept'
-                  value={profileData.education?.dept || ""}
-                  onChange={(e) => updateProfile("education", "dept", e.target.value)}
+                  value={profileData.education?.department || ""}
+                  onChange={(e) => updateProfile("education", "department", e.target.value)}
                   className='bg-gray-200 block w-full my-3 rounded-lg p-2' 
                 />
               </div>     

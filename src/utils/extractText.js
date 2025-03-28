@@ -1,13 +1,19 @@
-import axios from "axios"
-import pdfParse from "pdf-parse"
+import axios from "axios";
+import pdf from "pdf-extraction"
 
-export async function extractText(resumeLink) {
+export async function extractText(resumeURI) {
     try {
-        const response = await axios.get(resumeLink,{responseType:"arraybuffer"})
-        const data= await pdfParse(response.data);
-        return data.text
+        console.log("Fetching resume...");
+        const response = await axios.get(resumeURI, { responseType: "arraybuffer" });
+
+        if (!response.data) throw new Error("No data received from the resume URL.");
+
+        console.log("Extracting text...");
+        const pdfData = await pdf(response.data);
+        return pdfData.text || "No text extracted.";
 
     } catch (error) {
-        console.log(error)
+        console.error("Error extracting text from PDF:", error);
+        return null;
     }
 }

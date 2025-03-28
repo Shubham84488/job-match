@@ -4,7 +4,7 @@ import { authenticate } from "@/middlewares/authMiddleware";
 
 export async function GET(request) {
     try {
-        const authResponse = await authenticate(request);
+        const authResponse = await authenticate();
         if (authResponse instanceof NextResponse) return authResponse;
 
         const { user } = authResponse;
@@ -21,6 +21,7 @@ export async function GET(request) {
             return {
                 jobId: job.jobId,
                 title: jobDetail?.title || "Unknown",
+                skills: jobDetail?.skills || [],
                 company: job.company,
                 status: job.status,
                 appliedAt: job.appliedAt,

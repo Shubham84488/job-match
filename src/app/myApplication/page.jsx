@@ -4,37 +4,60 @@ import { Montserrat,Lora } from 'next/font/google';
 import axios from 'axios';
 import { ExternalLink } from 'lucide-react';
 import Link from 'next/link';
+import { Toaster,toast } from 'react-hot-toast';
 
 const montserrat = Montserrat({ subsets: ["latin"], weight: ["600"] });
 const lora = Lora({ subsets: ["latin"], weight: ["400"] });
 
 const MyApplication = () => {
   const [myJobs,setMyJobs] = useState([])
+  const [reports, setReports] = useState({})
 
-  const handleRes=async(jd)=>{
+  useEffect(() => {
+    const storedReports = localStorage.getItem("resumeScores");
+    if (storedReports) {
+      setReports(JSON.parse(storedReports));
+    }
+  }, []);
+
+
+  const handleRes=async(jobId,skills)=>{
     try {
-      const response =await axios.post("/api/jobseekers/resumescore",)
-      console.log(response)
+      console.log(skills)
+      const response =await axios.post("/api/jobseekers/resumescore",{skills: skills})
+      
+      setReports((prevReports) => ({
+        ...prevReports,
+        [jobId]: response.data, 
+      }));
+      toast.success("Score Provided")
+      const updatedReports = {
+        ...reports,
+        [jobId]: response.data,
+      };
+
+      setReports(updatedReports);
+      localStorage.setItem("resumeScores", JSON.stringify(updatedReports)); 
     } catch (error) {
       console.log("some error happened "+error)
     }
   }
 
   useEffect(()=>{
-    try {
       const fetchJobs=async()=>{
-        const response= await axios.get("/api/jobseekers/application","Hardwroking,know express,mongodb,react")
-        const data=response.data
-        setMyJobs(data)
-      } 
+        try {
+          const response= await axios.get("/api/jobseekers/application")
+          const data=response.data
+          setMyJobs(data) 
+        } catch (error) {
+          console.log("Some error happened "+error)
+        }
+      }
       fetchJobs()
-    } catch (error) {
-        console.log("Some error occurred")
-    }
   },[])
   return (
     <div className="m-6 p-4">
-
+      <Toaster/>
       <header className="bg-gray-200 shadow-md p-4">
 
         <h1 className={`text-center text-blue-600 pt-4 text-4xl font-bold italic ${montserrat.className}`}>My Applications</h1>
@@ -71,7 +94,11 @@ const MyApplication = () => {
                 </td>
                 <td className="px-6 py-3">{job.status}</td>
                 <td className="px-6 py-3">
-                  <button onClick={()=>handleRes(job?.description)}>Get Resume Score</button>
+                  <button onClick={() => handleRes(job?.jobId, job?.skills)} 
+                    className='bg-blue-600 px-2 py-1 rounded-md text-white hover:opacity-90'
+                    >
+                    Get Score: {reports[job.jobId] || "N/A"}
+                  </button>
                 </td>
               </tr>
             ))}

@@ -1,15 +1,15 @@
 import { authenticate } from "@/middlewares/authMiddleware";
+import { NextResponse } from "next/server";
 
 export async function getResume() {
     try {
-        console.log("hi")
-        const authResponse = await authenticate("asda");
-
+        const authResponse = await authenticate();
         if(authResponse instanceof NextResponse) return authResponse;
-        console.log("bye")
+
         const { user } = authResponse;
         const resumeLink = user.career.resume
     
+        console.log(resumeLink)
         return resumeLink    
     } catch (error) {
         console.log("Fetching PDF from:", resumeLink);
