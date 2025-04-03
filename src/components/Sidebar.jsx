@@ -5,7 +5,7 @@ import { Toaster,toast } from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 import { DM_Serif_Text } from "next/font/google";
-import { LogOut,Briefcase, UserPen, User, Info, Weight } from "lucide-react";
+import { LogOut,Briefcase, UserPen, User, Info, Pencil } from "lucide-react";
 
 const dm_Serif_Text = DM_Serif_Text({subsets: ['latin'],weight: ["400"]});
 
@@ -37,6 +37,7 @@ const Sidebar = () => {
   
     fetchRole();
   },[])
+  
     return (
       <div className="h-screen w-64 bg-gray-900 text-white fixed top-0 left-0 flex flex-col p-5">
         <Toaster/>
@@ -73,10 +74,30 @@ const Sidebar = () => {
         ) : 
         (
           <ul className="space-y-4">
-            <li><a href="/rec-dashboard" className="hover:text-gray-400">Dashboard</a></li>
-            <li><a href="/rec-postjob" className="hover:text-gray-400">Post Jobs</a></li>
-            <li><a href="/rec-profile" className="hover:text-gray-400">Profile</a></li>
-            <li><a href="/aboutUs" className="hover:text-gray-400">About Us</a></li>
+            <li>
+              <a href="/rec-dashboard" className="hover:text-gray-400 flex gap-2 mt-2">
+                <UserPen/>
+                <p>Dashboard</p>
+              </a>
+            </li>
+            <li>
+              <a href="/rec-postjob" className="hover:text-gray-400 flex gap-2 mt-2">
+                <Briefcase/>
+                <p>Post Jobs</p>
+              </a>
+            </li>
+            <li>
+              <a href="/rec-profile" className="hover:text-gray-400 flex gap-2 mt-2">
+                <User/>
+                <p>Profile</p>
+              </a>
+            </li>
+            <li>
+              <a href="/aboutUs" className="hover:text-gray-400 flex gap-2 mt-2">
+                <Info/>
+                <p>About Us</p>
+              </a>
+            </li>
           </ul>
         )
         }

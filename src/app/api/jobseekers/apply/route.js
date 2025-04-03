@@ -1,29 +1,17 @@
 import { NextResponse } from "next/server"
 import jobModel from "@/models/jobModel"
-import recruiter from "@/models/recruiterModel"
-import userModel from "@/models/userModel"
-import { cookies } from "next/headers"
-import jwt from "jsonwebtoken"
+import { authenticate } from "@/middlewares/authMiddleware"
 
 export async function POST(request){
     try {
         const req = await request.json()
         const { jobid } = req;
 
-        const cookie = await cookies()
-        const token = cookie.get("token")?.value
-
-        if (!token) {
-            return NextResponse.json({ error: "Unauthorized: No token provided" }, { status: 401 });
+        const authresponse = await authenticate()
+        if(authresponse instanceof NextResponse){
+            return authresponse
         }
-
-        const decoded = jwt.verify(token, process.env.TOKEN_SECRET);
-        const email = decoded.email;
-
-        const user = await userModel.findOne({ email });
-        if (!user) {
-            return NextResponse.json({error: "No user found"} , {status: 404})
-        }
+        const {user} = authresponse
         
         const job = await jobModel.findById(jobid)
         

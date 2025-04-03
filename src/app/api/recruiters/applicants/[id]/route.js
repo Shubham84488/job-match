@@ -34,11 +34,9 @@ export async function POST(request) {
         const { applicantId } = req; 
         console.log(applicantId);
 
-        // Get job ID from the URL
         const url = new URL(request.url)
         const jobid = url.pathname.split("/").pop();
 
-        // Fetch the job and applicant from the database
         const job = await jobModel.findById(jobid);
         if (!job) {
             return NextResponse.json({ message: "Job not found" }, { status: 404 });
