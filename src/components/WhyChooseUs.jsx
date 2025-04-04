@@ -100,11 +100,11 @@ export default function WhyChooseUs() {
           </div>
 
           <div className="mt-8 flex flex-col sm:flex-row gap-4">
-            <button className="bg-black text-white rounded-md text-xl px-8 py-3 hover:bg-slate-900 shadow-md">
+            <button className="bg-black text-white rounded-md text-xl px-8 py-3 hover:scale-[1.02]">
               <Link href="/signUp">Join Now</Link>
             </button>
-            <button className="bg-slate-200 rounded-md text-xl px-6 py-3 hover:bg-slate-300 shadow-md">
-              <Link href="/employerSignup">For Employers</Link>
+            <button className="bg-slate-200 rounded-md text-xl px-6 py-3 hover:scale-[1.02]">
+              <Link href="/hiretalent">For Employers</Link>
             </button>
           </div>
         </div>

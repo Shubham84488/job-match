@@ -34,7 +34,7 @@ const SignUp = () => {
     <div className="flex justify-center items-center min-h-screen bg-gradient-to-r from-blue-500 to-purple-600 p-4">
       <Toaster/>
       <div className="w-full max-w-md md:max-w-lg lg:max-w-md bg-gray-200 border-2 p-8 rounded-2xl shadow-lg shadow-black">
-        <h1 className="text-3xl font-extrabold text-center mb-6 text-gray-800">Sign Up</h1>
+        <h1 className="text-3xl font-extrabold text-center mb-6 text-gray-800">JobSeeker Sign Up</h1>
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
