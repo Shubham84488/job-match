@@ -35,7 +35,7 @@ const AboutUs = () => {
         </p>
         <div className="mt-4 text-gray-600">
           <p>📩 <strong>Contact Us:</strong>{" "} <span className="font-bold text-blue-800"> jobnewnow@gmail.com </span></p>
-          <p>🌐 <strong>Website:</strong> <a href="[Your Website URL]" className="text-blue-500 hover:underline">https://job-new.vercel.app/</a></p>
+          <p>🌐 <strong>Website:</strong> <a href="https://job-new.vercel.app/" className="text-blue-500 hover:underline">https://job-new.vercel.app/</a></p>
         </div>
       </section>
     </div>
