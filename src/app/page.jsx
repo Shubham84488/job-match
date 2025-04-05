@@ -4,10 +4,12 @@ import Hero from "@/components/Hero";
 import WhyChooseUs from "@/components/WhyChooseUs";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 
 export default function Home() {
 
   const [role,setRole]=useState("")
+  const router = useRouter();
 
   useEffect(()=>{
     const fetchRole = async () => {
