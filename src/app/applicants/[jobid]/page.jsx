@@ -20,6 +20,7 @@ const Page = () => {
       setReports(JSON.parse(storedReports));
     }
   }, []);
+  useEffect(() => {console.log(applicants)},[applicants])
 
   const handleStatusChange=async(status,applicantId,jobId)=>{
     try {
@@ -60,7 +61,7 @@ const Page = () => {
     const fetchApplicants = async () => {
       try {
         const response = await axios.get(`/api/recruiters/applicants/${jobid}`);
-        setApplicants(response.data);
+        setApplicants(response.data || []);
       } catch (error) {
         console.log("Some error occurred: " + error);
       } finally {
@@ -84,10 +85,14 @@ const Page = () => {
         <div className="text-center mt-6 text-lg font-semibold text-gray-700">
           Loading applicants...
         </div>
+      ) : applicants?.length === 0 ? (
+        <div className="text-center mt-6 text-lg font-semibold text-gray-600">
+          No Applicants Yet
+        </div>
       ) : (
         <div className="overflow-hidden rounded-lg shadow-lg mt-6">
           <table className="w-full border-collapse bg-white rounded-lg shadow-md">
-            <thead className="bg-gray-300 text-gray-800">
+          <thead className="bg-gray-300 text-gray-800">
               <tr>
                 <th className="p-4 text-left">NAME</th>
                 <th className="p-4 text-left">EMAIL</th>
@@ -98,7 +103,7 @@ const Page = () => {
               </tr>
             </thead>
             <tbody>
-              {applicants.map((applicant, index) => (
+              {applicants?.map((applicant, index) => (
                 <tr
                   key={index}
                   className={`border-t transition-all ${index % 2 === 0 ? "bg-gray-50" : "bg-white"} hover:bg-gray-200`}
@@ -125,7 +130,7 @@ const Page = () => {
                     </select>
                   </td>
                   <td className="p-4">
-                    <Link href={applicant.career.resume} className="text-blue-600 hover:underline">
+                    <Link href={applicant?.career?.resume ?? " "} className="text-blue-600 hover:underline">
                       View Resume
                     </Link>
                   </td>

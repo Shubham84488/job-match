@@ -13,7 +13,7 @@ const PostJob = () => {
   const [title,setTitle] = useState("");
   const [company, setCompany] = useState("")
   const [location, setLocation] = useState("")
-  const [experience,setExperience]=useState("")
+  const [experience,setExperience]=useState(0)
   const [minSalary, setMinSalary] = useState("")
   const [maxSalary, setMaxSalary] = useState("")
   const [applyByDate, setApplyByDate] = useState("")
@@ -102,7 +102,7 @@ const PostJob = () => {
 
         <div>
           <label className={`${nunito.className} text-lg mx-1`}>Experience</label>
-          <input defaultValue={0} type="number" placeholder="Experience" onChange={(e) => setExperience(e.target.value)} required className="w-full p-2 border rounded" />
+          <input value={experience} type="number" placeholder="Experience" onChange={(e) => setExperience(e.target.value)} required className="w-full p-2 border rounded" />
         </div>
         
         <div>
