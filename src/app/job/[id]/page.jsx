@@ -9,11 +9,16 @@ const JobDetails = () => {
   const [job, setJob] = useState(null);
 
   const handleApply=async()=>{
+    if(!window.confirm("Make sure your resume is uploaded before applying. Do you want to continue?")){
+      return;
+    }
+
     try {
         const response = await axios.post('/api/jobseekers/apply', { jobid: job?._id });
         toast.success("Job Applied")
         console.log(response);
     } catch (error) {
+        toast.error("Unable to apply")
         console.log("Some Error occured: ",error);
     }
   }

@@ -12,6 +12,11 @@ export async function POST(request){
             return authresponse
         }
         const {user} = authresponse
+        console.log(user.career.resume)
+
+        if(user.career.resume == ""){
+            return new NextResponse({message: "No resume found"}, { status: 400 })
+        }
         
         const job = await jobModel.findById(jobid)
         
