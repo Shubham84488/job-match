@@ -14,7 +14,7 @@ export async function POST(request){
         const {user} = authresponse
         console.log(user.career.resume)
 
-        if(user.career.resume == ""){
+        if(user.career.resume == null){
             return new NextResponse({message: "No resume found"}, { status: 400 })
         }
         
