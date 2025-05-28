@@ -17,7 +17,6 @@ const Jobs = () => {
     const postsPerPage = 5;
     const router = useRouter()
 
-
     const [filters, setFilters] = useState({
         profile: "",
         location: "",
@@ -77,57 +76,57 @@ const Jobs = () => {
 
             <div className='min-h-screen flex relative'>
                 <div className="w-1/3 border-2 p-6 rounded-lg h-fit sticky top-4 left-0 bg-white shadow-lg">
-                <h2 className="text-center text-2xl font-bold text-blue-800">Filters</h2>
+                    <h2 className="text-center text-2xl font-bold text-blue-800">Filters</h2>
 
-                <div className="mt-4">
-                    <label htmlFor="profile" className="text-blue-900 font-semibold block">
-                    Profile
-                    </label>
-                    <input
-                        type="text"
-                        id="profile"
-                        value={filters.profile ?? ""}
-                        onChange={handleInputChange}
-                        className="border w-full p-2 rounded-md"
-                    />
+                    <div className="mt-4">
+                        <label htmlFor="profile" className="text-blue-900 font-semibold block">
+                        Profile
+                        </label>
+                        <input
+                            type="text"
+                            id="profile"
+                            value={filters.profile ?? ""}
+                            onChange={handleInputChange}
+                            className="border w-full p-2 rounded-md"
+                        />
+                    </div>
+
+                    <div className="mt-4">
+                        <label htmlFor="location" className="text-blue-900 font-semibold block">
+                        Location
+                        </label>
+                        <input
+                            type="text"
+                            id="location"
+                            value={filters.location ?? ""}
+                            onChange={handleInputChange}
+                            className="border w-full p-2 rounded-md"
+                        />
+                    </div>
+
+                    <div className="mt-4">
+                        <label htmlFor="company" className="text-blue-900 font-semibold block">
+                        Company
+                        </label>
+                        <input
+                            type="text"
+                            id="company"
+                            value={filters.company ?? ""}
+                            onChange={handleInputChange}
+                            className="border w-full p-2 rounded-md"
+                        />
+                    </div>
+
+                    <button
+                        type="button"
+                        className="bg-blue-600 w-full mt-4 px-4 py-2 text-white rounded-xl hover:bg-blue-700 transition-all"
+                        onClick={applyFilters}
+                    >
+                        Apply Filters
+                    </button>
                 </div>
 
-                <div className="mt-4">
-                    <label htmlFor="location" className="text-blue-900 font-semibold block">
-                    Location
-                    </label>
-                    <input
-                        type="text"
-                        id="location"
-                        value={filters.location ?? ""}
-                        onChange={handleInputChange}
-                        className="border w-full p-2 rounded-md"
-                    />
-                </div>
-
-                <div className="mt-4">
-                    <label htmlFor="company" className="text-blue-900 font-semibold block">
-                    Company
-                    </label>
-                    <input
-                        type="text"
-                        id="company"
-                        value={filters.company ?? ""}
-                        onChange={handleInputChange}
-                        className="border w-full p-2 rounded-md"
-                    />
-                </div>
-
-                <button
-                    type="button"
-                    className="bg-blue-600 w-full mt-4 px-4 py-2 text-white rounded-xl hover:bg-blue-700 transition-all"
-                    onClick={applyFilters}
-                >
-                    Apply Filters
-                </button>
-                </div>
-
-                <div className="border-2 mx-16 w-3/4 mr-44">
+                <div className="border-2 ml-16 w-3/4 h-fit min-h-96 mr-44">
                     {loading ? (  
                         <div className="text-center text-3xl mt-10 font-light">Loading jobs...</div>
                     ) : (
